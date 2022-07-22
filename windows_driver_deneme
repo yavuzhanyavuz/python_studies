@@ -1,0 +1,118 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+
+driver = webdriver.Chrome(executable_path="C:/Users/e580/Desktop/python/Driver_Chrome.exe")
+
+my_url = 'https://spor.kadikoy.bel.tr/spor-salonu/kalamis-spor?activityCategories=6'
+driver.get(my_url)
+
+xpath = '//*[@id="bs-example-navbar-collapse-1"]/ul/li[1]/a'
+driver.find_element_by_xpath(xpath).click()
+
+xpath = '//*[@id="login-form"]/div/input[1]'
+driver.find_element_by_xpath(xpath).send_keys('57712253248')
+
+xpath = '//*[@id="login-form"]/div/input[2]'
+driver.find_element_by_xpath(xpath).send_keys('Ataturk10')
+
+xpath = '//*[@id="btnLoginSubmit"]'
+driver.find_element_by_xpath(xpath).click()
+
+my_url = 'https://spor.kadikoy.bel.tr/spor-salonu/kalamis-spor?activityCategories=6'
+driver.get(my_url)
+
+#content = driver.find_element_by_class_name('row col-md-12 days-container d-none d-sm-block')
+content = driver.find_element_by_id("SahaContainer")
+
+xpath = '//*[@id="SahaContainer"]/div[6]'
+content = driver.find_element_by_xpath(xpath)
+print(content.get_attribute('innerHTML'))
+
+print(content.get_attribute('outerHTML'))
+
+content.find_elements_by_tag_name('div')
+
+driver.execute_script("return document.body.innerHTML")
+
+from bs4 import BeautifulSoup
+import re
+
+soup_level1=BeautifulSoup(driver.page_source, 'lxml')
+print(type(soup_level1))
+
+soup_level1.find_all("div", class_="lesson active")
+
+
+print(soup_level1.find_all("div", {"class": "lesson active", "data-hour":["15:00/16:00", "13:00/14:00"]}))
+
+my_list = soup_level1.find_all("div", {"class": "lesson active", "data-hour":["15:00/16:00", "13:00/14:00"]})
+
+import pandas as pd
+
+my_id = my_list[0].get('id')
+driver.find_element_by_id(my_id).click()
+
+## rezerve et'e tıklar
+xpath = '//*[@id="basvuru-form"]/div[2]/input'
+driver.find_element_by_xpath(xpath).click()
+
+## rezerve clickten sonra devam
+xpath = '/html/body/div[4]/div/div/div[3]/button[2]'
+driver.find_element_by_xpath(xpath).click()
+
+## kuralları okudum kabul
+xpath = '/html/body/div[6]/div/div/div[2]/div/div/div[1]/div/div/label/span'
+driver.find_element_by_xpath(xpath).click()
+
+## ONAY, evet komutu
+xpath = '/html/body/div[6]/div/div/div[3]/button[2]'
+driver.find_element_by_xpath(xpath).click()
+
+## basarili ifadesi gelmis mi
+xpath = '/html/body/div[6]/div/div/div[1]/h4'
+assert driver.find_element_by_xpath(xpath).get_attribute('innerHTML') == 'Rezervasyon Başarılı'
+
+## rez basaridan sonra, devam
+xpath = '/html/body/div[6]/div/div/div[3]/button'
+driver.find_element_by_xpath(xpath).click()
+
+## RESTART 
+my_url = 'https://spor.kadikoy.bel.tr/spor-salonu/kalamis-spor?activityCategories=6'
+driver.get(my_url)
+driver.implicitly_wait(10)
+driver.get(my_url)
+
+## rez iptal
+rez_url = https://spor.kadikoy.bel.tr/ClubMember/MyReservation.aspx
+driver.get(rez_url)
+driver.implicitly_wait(1)
+xpath = '//*[@id="explanation"]'
+driver.find_element_by_xpath(xpath).send_keys('Yanlis Tarihi Secimi')
+xpath = '/html/body/div[5]/div/div/div[3]/button[2]'
+driver.find_element_by_xpath(xpath).click()
+
+
+xpath = '//*[@id="explanation"]'
+driver.find_element_by_xpath(xpath).click()
+
+## clear cache, lazımsa dene
+driver.get('chrome://settings/clearBrowserData')
+driver.find_element_by_xpath('//settings-ui').send_keys(Keys.ENTER)
+
+pd.read_html()
+
+pd.DataFrame(pd.concat([i for i in my_list]))
+
+for i in my_list:
+    print(i)
+    print('\n\n')
+    print('aaa')
+    print('\n')
+
+print(type(soup_level1.find_all("div", {"class": "lesson active", "data-hour":["15:00/16:00", "13:00/14:00"]})))
+
+print(type(content))
+print(content.get_attribute('value'))
+
+print(driver.current_url)
+
