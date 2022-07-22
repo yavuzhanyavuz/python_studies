@@ -13,7 +13,7 @@ xpath = '//*[@id="login-form"]/div/input[1]'
 driver.find_element_by_xpath(xpath).send_keys('57712253248')
 
 xpath = '//*[@id="login-form"]/div/input[2]'
-driver.find_element_by_xpath(xpath).send_keys('Ataturk10')
+driver.find_element_by_xpath(xpath).send_keys('aaronswartz')
 
 xpath = '//*[@id="btnLoginSubmit"]'
 driver.find_element_by_xpath(xpath).click()
